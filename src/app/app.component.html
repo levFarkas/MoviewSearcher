@@ -1,13 +1,22 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="topnav">
-  <a class="active" href="#home">Welcome to movie searcher application</a>
-  <input id="search5" name="q" type="text" size="40" placeholder="Search..." />
+  <div class="row">
+    <div class="pure-css-select-style theme-rounded">
+      <select #searchSelect (change)="searchByGenre(searchSelect.value)">
+        <optgroup>
+          <option value="-1" disabled>Choose genre...</option>
+          <option *ngFor="let genre of responseGenre.genres" [value]="genre.id">{{genre.name}}</option>
+        </optgroup>
+      </select>
+    </div>
+    <input id="search5" #searchBox (keyup)="search(searchBox.value)" name="q" type="text" size="40" placeholder="Search..." />
+  </div>
 </div>
 <div class="container-fluid" id="fh5co-image-grid">
   <div class="grid">
     <div class="grid-sizer"></div>
 
-    <div *ngFor="let movie of response.results " class="grid-item item animate-box" data-animate-effect="fadeIn">
+    <div *ngFor="let movie of response.results" class="grid-item item animate-box" data-animate-effect="fadeIn">
       <a href="single.html">
         <div class="img-wrap">
           <img src = 'https://image.tmdb.org/t/p/w500{{movie.poster_path}}' alt="" class="img-responsive">
@@ -16,7 +25,8 @@
           <div class="text-inner">
             <div>
               <h2>{{movie.title}}</h2>
-              <span>72 photos</span>
+              <span>{{movie.overview}}</span>
+              <button class="similarity-button">Similar to this</button>
             </div>
           </div>
         </div>

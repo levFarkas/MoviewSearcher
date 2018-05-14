@@ -360,7 +360,7 @@ h1, h2, h3, h4, h5, h6, figure {
   text-align: center;
 }
 #fh5co-image-grid .item a .text-wrap .text-inner > div h2 {
-  font-size: 18px;
+  font-size: 30px;
   margin: 0;
   color: #fff;
   display: inline-block;
@@ -372,8 +372,9 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 #fh5co-image-grid .item a .text-wrap .text-inner > div span {
   display: block;
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 16px;
+  padding: 30px;
 }
 #fh5co-image-grid .item a:hover .img-wrap img {
   transform: scale(1.2);
@@ -444,10 +445,25 @@ h1, h2, h3, h4, h5, h6, figure {
 .grid-item img {
   display: block;
   max-width: 100%;
+  width: 450px;
+  height: 680px;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 
 .js .animate-box {
   opacity: 0;
+}
+
+.similarity-button {
+  background-color: #555555;
+  border: 1px solid white;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 }
 
 /*# sourceMappingURL=style.css.map */
