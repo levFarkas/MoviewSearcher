@@ -4,7 +4,7 @@
     <div class="pure-css-select-style theme-rounded">
       <select #searchSelect (change)="searchByGenre(searchSelect.value)">
         <optgroup>
-          <option value="-1" disabled>Choose genre...</option>
+          <option value="" >Choose genre...</option>
           <option *ngFor="let genre of responseGenre.genres" [value]="genre.id">{{genre.name}}</option>
         </optgroup>
       </select>
@@ -12,12 +12,16 @@
     <input id="search5" #searchBox (keyup)="search(searchBox.value)" name="q" type="text" size="40" placeholder="Search..." />
   </div>
 </div>
+<a *ngIf="actualPage > 1 && !(selectedGenre && selectedGenre.length > 0 && searchKeyword && searchKeyword.length > 0)"
+   class='previous-a' href="javascript:void(0)" (click)="pagingToPrevious()">Previous</a>
+<a *ngIf="actualPage < response.total_pages && !(selectedGenre && selectedGenre.length > 0 && searchKeyword && searchKeyword.length > 0)"
+   class='next-a' href="javascript:void(0)" (click)="pagingToNext()"> Next</a>
 <div class="container-fluid" id="fh5co-image-grid">
   <div class="grid">
     <div class="grid-sizer"></div>
 
     <div *ngFor="let movie of response.results" class="grid-item item animate-box" data-animate-effect="fadeIn">
-      <a href="single.html">
+      <a href="javascript:void(0)">
         <div class="img-wrap">
           <img src = 'https://image.tmdb.org/t/p/w500{{movie.poster_path}}' alt="" class="img-responsive">
         </div>
@@ -26,7 +30,7 @@
             <div>
               <h2>{{movie.title}}</h2>
               <span>{{movie.overview}}</span>
-              <button class="similarity-button">Similar to this</button>
+              <button class="similarity-button" (click)="searchSimilarities(movie.id)">Similar to this</button>
             </div>
           </div>
         </div>

@@ -11,6 +11,7 @@
 * ======================================================= */
 html, body {
   overflow-x: hidden;
+  margin:0 auto;
 }
 
 body {
@@ -360,7 +361,7 @@ h1, h2, h3, h4, h5, h6, figure {
   text-align: center;
 }
 #fh5co-image-grid .item a .text-wrap .text-inner > div h2 {
-  font-size: 30px;
+  font-size: 36px;
   margin: 0;
   color: #fff;
   display: inline-block;
@@ -466,4 +467,13 @@ h1, h2, h3, h4, h5, h6, figure {
   font-size: 16px;
 }
 
+.previous-a {
+  float: left;
+  padding: 20px;
+}
+
+.next-a {
+  float: right;
+  padding: 20px;
+}
 /*# sourceMappingURL=style.css.map */

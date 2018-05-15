@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Response} from './movie/movie';
-import {Genre} from './movie/genre';
 
 @Injectable({
   providedIn: 'root'
@@ -11,29 +10,40 @@ export class MovieService {
 
   constructor(private http: HttpClient) {}
 
-  getLastMovies(): Observable<Response>{
-    return this.http.get<Response>('https://api.themoviedb.org/3/discover/movie?' + this.getApiKeyParam() + this.getQueryParam());
+  getLastMovies(page): Observable<Response>{
+    return this.http.get<Response>('https://api.themoviedb.org/3/discover/movie?' + this.getApiKeyParam() + this.getQueryParam() + this.getPageParam(page));
   }
 
-  search(term, genre_id): Observable<Response> {
+  nextPage(genre_id, similar_id, page): Observable<Response>{
+    if (genre_id && genre_id.length > 0){
+      return this.searchByGenre(genre_id, page);
+    }
+    if (similar_id && similar_id.length > 0){
+      return this.getSimilarities(similar_id, page);
+    }
+    return this.getLastMovies(page)
+  }
+
+  search(term, genre_id, page): Observable<Response> {
     if (term && term.length > 0) {
       return this.http.get<Response>('https://api.themoviedb.org/3/search/movie?' + this.getApiKeyParam() + '&query=' + encodeURI(term));
     }
     if (genre_id && genre_id.length > 0) {
-      return this.searchByGenre(genre_id);
+      return this.searchByGenre(genre_id, page);
     }
-    return this.getLastMovies();
+    return this.getLastMovies(page);
   }
 
-  searchByGenreAndKeyword(genre_id, keyword): Observable<Response> {
-    return this.http.get<Response>('https://api.themoviedb.org/3/discover/movie?' + this.getApiKeyParam() + this.getGenreParam(genre_id) + this.getKeyWordParam(keyword));
+  searchByGenre(genre_id, page): Observable<Response> {
+    if (genre_id && genre_id.length > 0){
+      return this.http.get<Response>('https://api.themoviedb.org/3/discover/movie?' + this.getApiKeyParam() + this.getGenreParam(genre_id) + this.getPageParam(page));
+    }
+    return this.getLastMovies(page);
   }
 
-  searchByGenre(genre_id): Observable<Response> {
-    return this.http.get<Response>('https://api.themoviedb.org/3/discover/movie?' + this.getApiKeyParam() + this.getGenreParam(genre_id));
+  getSimilarities(movie_id, page): Observable<Response> {
+    return this.http.get<Response>('https://api.themoviedb.org/3/movie/' + movie_id + '/similar?' + this.getApiKeyParam() + this.getPageParam(page));
   }
-
-
   getApiKeyParam(): string {
     return 'api_key=ebbc2e84db90a6c822906cb5f45b655d';
   }
@@ -52,6 +62,9 @@ export class MovieService {
   }
   getKeyWordParam(keyword): string {
     return '&with_keywords=' + keyword;
+  }
+  getPageParam(page){
+    return '&page=' + page;
   }
 
 }
