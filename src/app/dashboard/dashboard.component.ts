@@ -30,6 +30,7 @@ export class DashboardComponent implements OnInit {
   /** similar to this movie_id **/
   similarId: string;
   actualPage: number = 1;
+  responseGenre: ResponseGenre;
   private searchTerm = new Subject<string>();
   private searchGenre = new Subject<string>();
   private searchSimilar = new Subject<string>();
