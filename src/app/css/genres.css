@@ -76,7 +76,7 @@
 
 /* Rounded ------------------------------------------------------------------ */
 .theme-rounded {
-  border: 2px solid #000;
+  /*border: 2px solid #000;*/
   float:right;
   margin-right: 20px;
   border-radius: 50px;

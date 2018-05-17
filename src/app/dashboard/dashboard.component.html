@@ -1,0 +1,45 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="topnav">
+  <div class="row">
+    <div routerLink="/" class="logo"></div>
+
+    <div class="pure-css-select-style theme-rounded" style='margin-top:23px;'>
+      <select #searchSelect (change)="searchByGenre(searchSelect.value)" >
+        <optgroup>
+          <option value="" >Choose genre...</option>
+          <option *ngFor="let genre of responseGenre.genres" [value]="genre.id">{{genre.name}}</option>
+        </optgroup>
+      </select>
+    </div>
+    <input id="search5" #searchBox (keyup)="search(searchBox.value)" name="q" type="text" size="40" placeholder="Search..." style = 'margin-top:23px;' />
+  </div>
+</div>
+<a *ngIf="actualPage > 1 && !(selectedGenre && selectedGenre.length > 0 && searchKeyword && searchKeyword.length > 0)"
+   class='previous-a' href="javascript:void(0)" (click)="pagingToPrevious()">Previous</a>
+<a *ngIf="actualPage < response.total_pages && !(selectedGenre && selectedGenre.length > 0 && searchKeyword && searchKeyword.length > 0)"
+   class='next-a' href="javascript:void(0)" (click)="pagingToNext()"> Next</a>
+<div class="container-fluid" id="fh5co-image-grid">
+  <div class="grid">
+    <div class="grid-sizer"></div>
+
+    <div *ngFor="let movie of response.results" class="grid-item item animate-box" data-animate-effect="fadeIn">
+      <a routerLink="/movie/{{movie.id}}" href="javascript:void(0)">
+        <div class="img-wrap">
+          <img src = 'https://image.tmdb.org/t/p/w500{{movie.poster_path}}' alt="" class="img-responsive">
+        </div>
+        <div class="text-wrap">
+          <div class="text-inner">
+            <div>
+              <h2>{{movie.title}}</h2>
+              <span>{{movie.overview}}</span>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+
+

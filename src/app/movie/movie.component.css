@@ -1,0 +1,25 @@
+.movie-description{
+  display:inline-block;
+  font-family: "icomoon";
+  text-align: left;
+  margin: 20px;
+  font-size: 18px;
+  width:700px;
+}
+.movie-description .title{
+  font-size: 36px;
+}
+
+.similarity-button {
+  background-color: #555555;
+  border: 1px solid white;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  z-index: 100;
+  cursor: pointer;
+  margin-top: 20px;
+}

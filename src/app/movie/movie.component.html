@@ -1,1 +1,15 @@
+<div class="topnav">
+  <div class="row" style="height: 100px; margin-left: -15px;">
+    <div class="logo" routerLink="/" ></div>
+    <button routerLink="/" style="float: right;" class="similarity-button"> <- Back </button>
+  </div>
+</div>
 
+<img src = 'https://image.tmdb.org/t/p/w500{{movie.poster_path}}' alt="" class="img-responsive" style="margin-top: 80px; margin-left:15px" >
+<div class="movie-description">
+  <div class="title"><p>{{movie.title}}</p></div>
+  <b>Categories: </b> <span *ngFor="let genre of movie.genres">{{genre.name}}, </span>
+  <p>{{movie.overview}}</p>
+  <b>Main Actors:</b> <div *ngFor="let actor of responseCast.cast | slice:0:10;"><b>{{actor.character}}</b> - {{actor.name}}</div>
+  <button routerLink="/{{movie.id}}" class="similarity-button" >Similar movies</button>
+</div>
