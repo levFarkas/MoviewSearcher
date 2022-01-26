@@ -15,7 +15,7 @@ import {ActivatedRoute, Params} from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
-  /** Response of moviess**/
+  /** Response of movies**/
   response: Response;
 
   /** Copy of response of movies to handle filtering**/
@@ -42,8 +42,10 @@ export class DashboardComponent implements OnInit {
     /** if parameterized url, then run similarity function **/
     const id = this.route.snapshot.paramMap.get('id');
     this.route.params.subscribe((params: Params) => {
-      this.movieService.getSimilarities(params['id'], this.actualPage).subscribe(response => this.response = response);
-    };
+      if (params['id']) {
+        this.movieService.getSimilarities(params['id'], this.actualPage).subscribe(response => this.response = response);
+      }
+    });
     this.searchTerm.pipe(
       debounceTime(500),
       distinctUntilChanged(),
@@ -64,6 +66,7 @@ export class DashboardComponent implements OnInit {
       this.response = response;
       this.responseCopy = Object.assign({}, response);
     });
+
     this.searchSimilar.pipe(
       distinctUntilChanged(),
       switchMap( term => this.movieService.getSimilarities(term, this.actualPage))
@@ -75,7 +78,8 @@ export class DashboardComponent implements OnInit {
     this.nextPage.pipe(
       switchMap(x => this.movieService.nextPage(this.selectedGenre, this.similarId, x))
     ).subscribe(response => this.response = response);
-    if (!(id && id.length > 0)) {
+
+    if (id == null) {
       this.movieService.getLastMovies(this.actualPage).subscribe(response => {
         this.response = response;
         this.responseCopy = Object.assign({}, response)
