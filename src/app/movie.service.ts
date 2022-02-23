@@ -67,10 +67,10 @@ export class MovieService {
       from_month = 13;
       from_year = to_year - 1
     }
-    const from_filler = from_month - 1 < 10 ? "0" : ""
+    const from_filler = from_month < 10 ? "0" : ""
     const to_filler = to_month < 10 ? "0" : ""
     const day = today.getDate();
-    const part1 = '&primary_release_date.gte=' + from_year + '-' + from_filler + (from_month - 1) + '-' + day;
+    const part1 = '&primary_release_date.gte=' + from_year + '-' + from_filler + (from_month) + '-' + day;
     const part2 = '&primary_release_date.lte=' +  to_year + '-' + to_filler + to_month + '-' + day;
     return part1 + part2;
   }
